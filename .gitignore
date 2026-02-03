@@ -5,6 +5,7 @@ target/
 reports/
 allure-results/
 allure-report/
+test-output/
 
 # Eclipse IDE
 .project
