@@ -25,7 +25,6 @@ public class OnboardingPage extends AndroidActions {
 
 	public void assertFirstSlide() {
 //		 Assert first slide
-		customWaitForElement(HeaderText, 20);
 		String header = driver.findElement(HeaderText).getText();
 		Assert.assertEquals(header, "Say hi to your new finance tracker");
 		String continueBtnText = driver.findElement(ContinueBtn).getText();
@@ -35,7 +34,6 @@ public class OnboardingPage extends AndroidActions {
 
 //Assert second slide
 		public void assertSecondSlide() {	
-		customWaitForElement(HeaderText, 2);
 		String header2 = driver.findElement(HeaderText).getText();
 		Assert.assertEquals(header2, "Control your spend and start saving");
 		String continueBtnText2 = driver.findElement(ContinueBtn).getText();
@@ -45,7 +43,6 @@ public class OnboardingPage extends AndroidActions {
 
 //	Assert third slide
 	public void assertThirdSlide() {
-		customWaitForElement(HeaderText, 2);
 		String header3 = driver.findElement(HeaderText).getText();
 		Assert.assertEquals(header3, "Great! Want us to send you small reminders?");
 		String continueBtnText3 = driver.findElement(ContinueBtn).getText();
@@ -56,7 +53,6 @@ public class OnboardingPage extends AndroidActions {
 //	Allow Monefy to send notifications if alert appears
 	public void allowNotifications() {
 		try {
-			customWaitForElement(By.id("com.android.permissioncontroller:id/permission_allow_button"), 5);
 			driver.findElement(By.id("com.android.permissioncontroller:id/permission_allow_button")).click();
 		} catch (Exception e) {
 			System.out.println("No notification permission prompt displayed");
@@ -65,12 +61,19 @@ public class OnboardingPage extends AndroidActions {
 	
 //	Assert fourth slide
 	public void assertFourthSlide() {
-		customWaitForElement(HeaderText, 2);
 		String header4 = driver.findElement(HeaderText).getText();
 		Assert.assertEquals(header4, "Together we’ll reach your financial goals");
 		String continueBtnText4 = driver.findElement(ContinueBtn).getText();
 		Assert.assertEquals(continueBtnText4, "I’M READY");
 		driver.findElement(ContinueBtn).click();
+//		 sleep for 2 seconds to allow offer page to load
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+//		driver.findElement(ContinueBtn).click();
 	}
 
 

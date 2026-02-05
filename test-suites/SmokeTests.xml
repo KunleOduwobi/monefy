@@ -18,9 +18,9 @@
 	
 
 	<test thread-count="5" name="Onboarding Test">
-		<parameter name="NoReset" value="false"></parameter>
+		<parameter name="Currency" value="£"></parameter>
 		<classes>
-			<class name="androidTests.ViewSlides" />
+			<class name="androidTests.DashboardValidation" />
 		</classes>
 	</test>
 	
