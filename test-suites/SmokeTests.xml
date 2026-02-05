@@ -20,7 +20,7 @@
 	<test thread-count="5" name="Onboarding Test">
 		<parameter name="Currency" value="£"></parameter>
 		<classes>
-			<class name="androidTests.DashboardValidation" />
+			<class name="androidTests.AddIncome" />
 		</classes>
 	</test>
 	

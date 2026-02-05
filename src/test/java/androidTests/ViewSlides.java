@@ -12,8 +12,6 @@ import base.AndroidSetup;
 
 public class ViewSlides extends AndroidSetup {
 
-	boolean fast;
-
 	@Parameters({ "BStackDeviceOS" })
 	@Test(description = "Verify that a user can view welcome tour", groups = { "ViewSlides.viewSlides", "regression", "smoke" })
 	public void viewSlides(String BStackDeviceOS) throws IOException {
