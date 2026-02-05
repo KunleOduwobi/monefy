@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import io.appium.java_client.android.AndroidDriver;
 import utils.AndroidActions;
@@ -18,44 +19,60 @@ public class Onboarding extends AndroidActions {
 
 	
 
-	private final By FirstrunContainer = By.id("com.ecosia.android:id/ecosia_firstrun_pager_container");
-	private final By FirstrunLogo = By.id("com.ecosia.android:id/firstrun_logo");
-	private final By FirstrunText = By.id("com.ecosia.android:id/firstrun_text");
-	private final By GetStartedBtn = By.id("com.ecosia.android:id/firstrun_continue_button");
-	private final By SkipTourBtn = By.id("com.ecosia.android:id/firstrun_skip_button");
-	private final By Headline = By.id("com.ecosia.android:id/ecosia_firstrun_page_headline");
-	private final By PageText = By.id("com.ecosia.android:id/ecosia_firstrun_page_text");
-	private final By Pg1Card1 = By.id("com.ecosia.android:id/ecosia_firstrun_proof_1_card_a");
-	private final By Pg1Card2 = By.id("com.ecosia.android:id/ecosia_firstrun_proof_1_card_b");
-	private final By Pg2ProofCard = By.id("com.ecosia.android:id/ecosia_firstrun_fragment_proof_before_after");
-	private final By Pg3ProofCardA = By.id("com.ecosia.android:id/ecosia_firstrun_proof_3_card_a");
-	private final By Pg3ProofCardB = By.id("com.ecosia.android:id/ecosia_firstrun_proof_3_card_b");
-	private final By Pg3ProofCardCImage = By.id("com.ecosia.android:id/onboarding_proof_3_card_c_image");
-	private final By Pg4Image = By.id("com.ecosia.android:id/ecosia_firstrun_page_content_bg");
+	private final By HeaderText = By.id("com.monefy.app.lite:id/textViewHeader");
 
-	private final By SkipBtn = By.id("com.ecosia.android:id/ecosia_firstrun_skip_button");
-	private final By ContinueBtn = By.id("com.ecosia.android:id/ecosia_firstrun_continue_button");
+	private final By ContinueBtn = By.id("com.monefy.app.lite:id/buttonContinue");
 
-	public WebElement getFirstrunContainer() {
-		return driver.findElement(FirstrunContainer);
+	public void assertFirstSlide() {
+//		 Assert first slide
+		customWaitForElement(HeaderText, 20);
+		String header = driver.findElement(HeaderText).getText();
+		Assert.assertEquals(header, "Say hi to your new finance tracker");
+		String continueBtnText = driver.findElement(ContinueBtn).getText();
+		Assert.assertEquals(continueBtnText, "GET STARTED");
+		driver.findElement(ContinueBtn).click();
 	}
 
-	public String getFirstrunText() {
-		customWaitForElement(FirstrunLogo, 50);
-		return driver.findElement(FirstrunText).getText();
+//Assert second slide
+		public void assertSecondSlide() {	
+		customWaitForElement(HeaderText, 2);
+		String header2 = driver.findElement(HeaderText).getText();
+		Assert.assertEquals(header2, "Control your spend and start saving");
+		String continueBtnText2 = driver.findElement(ContinueBtn).getText();
+		Assert.assertEquals(continueBtnText2, "AMAZING");
+		driver.findElement(ContinueBtn).click();
 	}
 
-	public void startTour() {
-		driver.findElement(GetStartedBtn).click();
+//	Assert third slide
+	public void assertThirdSlide() {
+		customWaitForElement(HeaderText, 2);
+		String header3 = driver.findElement(HeaderText).getText();
+		Assert.assertEquals(header3, "Great! Want us to send you small reminders?");
+		String continueBtnText3 = driver.findElement(ContinueBtn).getText();
+		Assert.assertEquals(continueBtnText3, "YES, PLEASE!");
+		driver.findElement(ContinueBtn).click();
 	}
-
 	
+//	Allow Monefy to send notifications if alert appears
+	public void allowNotifications() {
+		try {
+			customWaitForElement(By.id("com.android.permissioncontroller:id/permission_allow_button"), 5);
+			driver.findElement(By.id("com.android.permissioncontroller:id/permission_allow_button")).click();
+		} catch (Exception e) {
+			System.out.println("No notification permission prompt displayed");
+		}
+	}
+	
+//	Assert fourth slide
+	public void assertFourthSlide() {
+		customWaitForElement(HeaderText, 2);
+		String header4 = driver.findElement(HeaderText).getText();
+		Assert.assertEquals(header4, "Together we’ll reach your financial goals");
+		String continueBtnText4 = driver.findElement(ContinueBtn).getText();
+		Assert.assertEquals(continueBtnText4, "I’M READY");
+		driver.findElement(ContinueBtn).click();
+	}
 
-//	method to perform an action an return another page
-//	public PromoDialog skipTour() {
-//		driver.findElement(SkipTourBtn).click();
-//		return new PromoDialog(driver);
-//	}
 
 	
 
