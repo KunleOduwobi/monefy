@@ -24,10 +24,11 @@ public class Listeners extends AppiumUtils implements ITestListener {
 
 	public String getEnv() throws IOException {
 		Properties prop = new Properties();
-		FileInputStream fis = new FileInputStream(
-				System.getProperty("user.dir") + "//src//main//java//resources//data.properties");
-
-		prop.load(fis);
+		// Corrected path: resources are in src/main/resources, not src/main/java/resources
+				try (FileInputStream fis = new FileInputStream(
+						System.getProperty("user.dir") + "//src//main//resources//data.properties")) {
+					prop.load(fis);
+				}
 
 		Env = System.getProperty("Env") != null ? System.getProperty("Env") : (String) prop.getProperty("Env");
 		return Env;
