@@ -2,10 +2,10 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Android Mobile 14 - Smoke Tests">
 	<listeners>
-		<listener class-name="utils.Listeners"></listener>
+		<listener class-name="utils.Listeners" />
 		<listener class-name="utils.AnnotationTransformer" />
 	</listeners>
-	<parameter name="NoReset" value="true"></parameter>
+	<parameter name="NoReset" value="false"></parameter>
 	<parameter name="BStackDevice" value="SM-A525F"></parameter>
 	<parameter name="BStackDeviceOS" value="14.0"></parameter>
 	<parameter name="geoLocation" value="FR"></parameter>
@@ -15,16 +15,14 @@
 	<parameter name="language" value="en"></parameter>
 	<parameter name="deviceType" value="mobile"></parameter>
 
-	
-
-	<test thread-count="5" name="Onboarding Test">
-		<parameter name="NoReset" value="false"></parameter>
+	<test thread-count="5" name="Smoke Tests">
+		<groups>
+			<run>
+				<include name="smoke"></include>
+			</run>
+		</groups>
 		<classes>
 			<class name="androidTests.ViewSlides" />
 		</classes>
 	</test>
-	
-	
-
-
 </suite>
