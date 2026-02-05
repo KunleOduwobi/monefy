@@ -7,9 +7,9 @@ import org.testng.Assert;
 import io.appium.java_client.android.AndroidDriver;
 import utils.AndroidActions;
 
-public class Onboarding extends AndroidActions {
+public class OnboardingPage extends AndroidActions {
 
-	public Onboarding(AndroidDriver driver) {
+	public OnboardingPage(AndroidDriver driver) {
 		super(driver);
 		// TODO Auto-generated constructor stub
 		this.driver = driver;

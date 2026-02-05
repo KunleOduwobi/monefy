@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import pages.Onboarding;
+import pages.OnboardingPage;
 
 import base.AndroidSetup;
 
@@ -16,7 +16,7 @@ public class ViewSlides extends AndroidSetup {
 	@Test(description = "Verify that a user can view welcome tour", groups = { "regression", "smoke" })
 	public void viewSlides(String BStackDeviceOS) throws IOException {
 
-		Onboarding onboardingPage = new Onboarding(driver);
+		OnboardingPage onboardingPage = new OnboardingPage(driver);
 		onboardingPage.assertFirstSlide();
 		onboardingPage.assertSecondSlide();
 		onboardingPage.assertThirdSlide();
