@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import io.appium.java_client.android.AndroidDriver;
@@ -21,8 +20,6 @@ public class OfferPage extends AndroidActions {
 
 	private final By Title = By.id("com.monefy.app.lite:id/textViewTitle");
 	private final By CloseBtn = By.id("com.monefy.app.lite:id/buttonClose");
-	private final By RestoreBtn = By.id("com.monefy.app.lite:id/buttonRestore");
-	private final By PurchaseBtn = By.id("com.monefy.app.lite:id/buttonPurchase");
 
 //	Assert offer page title
 	public void assertOfferPageTitle() {

@@ -23,7 +23,6 @@ public class ViewSlides extends AndroidSetup {
 		onboardingPage.assertThirdSlide();
 		onboardingPage.allowNotifications();
 		onboardingPage.assertFourthSlide();
-//		assert offer page title
 		offerPage.assertOfferPageTitle();
 		offerPage.closeOfferPage();
 	}
