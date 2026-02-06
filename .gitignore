@@ -2,7 +2,6 @@
 target/
 
 # Test reports
-reports/
 allure-results/
 allure-report/
 test-output/
