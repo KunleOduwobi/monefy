@@ -15,16 +15,21 @@
 	<parameter name="language" value="en"></parameter>
 	<parameter name="deviceType" value="mobile"></parameter>
 
-	
 
-	<test thread-count="5" name="Onboarding Test">
+	<test thread-count="5" name="Dashboard Validation Test">
+		<parameter name="NoReset" value="false"></parameter>
+		<parameter name="Currency" value="£"></parameter>
+		<classes>
+			<class name="androidTests.DashboardValidation" />
+		</classes>
+	</test>
+	<test thread-count="5" name="Add Income Test">
+		<parameter name="NoReset" value="false"></parameter>
 		<parameter name="Currency" value="£"></parameter>
 		<classes>
 			<class name="androidTests.AddIncome" />
 		</classes>
 	</test>
-	
-	
 
 
 </suite>
