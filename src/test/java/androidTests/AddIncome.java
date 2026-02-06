@@ -19,6 +19,7 @@ public class AddIncome extends ViewSlides {
 		String incomeAmount = "500.50";
 		
 		dashboard.initialIncomeVerification(Currency);
+		String currentDisplayedIncome = dashboard.getCurrentDisplayedIncome(Currency);
 		dashboard.clickAddIncome();
 		income.enterIncomeAmount(incomeAmount);
 		income.verifyIncomeAmount(incomeAmount);
@@ -26,7 +27,7 @@ public class AddIncome extends ViewSlides {
 		income.clickChooseCategory();
 		income.selectIncomeCategory("Salary");
 		dashboard.balanceAmountVerification(Currency, incomeAmount);
-		dashboard.incomeAmountVerification(Currency, incomeAmount);
+		dashboard.incomeAmountVerification(Currency, currentDisplayedIncome, incomeAmount);
 	}
 
 }

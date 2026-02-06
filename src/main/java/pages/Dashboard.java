@@ -7,6 +7,10 @@ import org.testng.Assert;
 import io.appium.java_client.android.AndroidDriver;
 import utils.AndroidActions;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 public class Dashboard extends AndroidActions {
 
 	public Dashboard(AndroidDriver driver) {
@@ -64,11 +68,31 @@ public class Dashboard extends AndroidActions {
 
 	}
 	
-//	Verify Income Amount
-	public void incomeAmountVerification(String Currency, String expectedIncome) {
+//	Get current displayed income
+	public String getCurrentDisplayedIncome(String Currency) {
 		WebElement incomeElement = driver.findElement(IncomeAmount);
 		String incomeText = incomeElement.getText();
-		Assert.assertEquals(incomeText, Currency + expectedIncome, "Income amount does not match expected value.");
+		return incomeText.replace(Currency, "").trim();
+	}
+	
+//	Verify Income Amount
+	public void incomeAmountVerification(String Currency, String currentDisplayedIncome,String addedIncome) {
+
+		// Parse amounts using BigDecimal for precision
+		BigDecimal displayedAmount = new BigDecimal(currentDisplayedIncome.replaceAll(",", ""));
+		BigDecimal incomingAmount = new BigDecimal(addedIncome.replaceAll(",", ""));
+
+		// Sum previous displayed amount and incoming expectedIncome
+		BigDecimal summed = displayedAmount.add(incomingAmount).setScale(2, RoundingMode.HALF_UP);
+
+		// Format summed amount to 2 decimal places
+		DecimalFormat df = new DecimalFormat("0.00");
+		df.setRoundingMode(RoundingMode.HALF_UP);
+		String summedStr = df.format(summed);
+
+		WebElement incomeElement = driver.findElement(IncomeAmount);
+		String incomeText = incomeElement.getText();
+		Assert.assertEquals(incomeText, Currency + summedStr, "Income amount does not match expected value.");
 	}
 	
 	public void initialExpenseVerification(String Currency) {
