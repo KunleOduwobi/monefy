@@ -30,6 +30,12 @@
 			<class name="androidTests.AddIncome" />
 		</classes>
 	</test>
-
+	<test thread-count="5" name="Add Expense Test">
+		<parameter name="NoReset" value="false"></parameter>
+		<parameter name="Currency" value="£"></parameter>
+		<classes>
+			<class name="androidTests.AddExpense" />
+		</classes>
+	</test>
 
 </suite>

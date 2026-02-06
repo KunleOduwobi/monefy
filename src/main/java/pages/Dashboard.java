@@ -50,11 +50,41 @@ public class Dashboard extends AndroidActions {
 		Assert.assertEquals(balanceText, "Balance " + Currency + "0.00", "Initial balance is not 0.00");
 	}
 	
-//	Verify Balance Amount
-	public void balanceAmountVerification(String Currency, String expectedBalance) {
+//	Get currently displayed amount on the dashboard without the currency symbol for easier calculations
+	public String getCurrentDisplayedBalance(String Currency) {
 		WebElement balanceElement = driver.findElement(BalanceAmount);
 		String balanceText = balanceElement.getText();
-		Assert.assertEquals(balanceText, "Balance " + Currency + expectedBalance, "Balance amount does not match expected value.");
+		return balanceText.replace("Balance ", "").replace(Currency, "").trim();
+	}	
+//	Verify Balance Amount
+	public void balanceAmountVerification(String Currency, String currentDisplayedBalance, String IncomingAmount, String AmountType) {
+		
+		System.out.println("Current Balance: " + currentDisplayedBalance);
+		System.out.println("Incoming Amount: " + IncomingAmount);
+//		Calculate expected balance based on the type of amount being added (income or expense)
+		BigDecimal currentBalance = new BigDecimal(currentDisplayedBalance);
+		BigDecimal incomingAmount = new BigDecimal(IncomingAmount.replaceAll(",", ""));
+		BigDecimal expectedBalance;
+		
+		if (AmountType.equalsIgnoreCase("income")) {
+			expectedBalance = currentBalance.add(incomingAmount).setScale(2, RoundingMode.HALF_UP);
+		} else if (AmountType.equalsIgnoreCase("expense")) {
+			expectedBalance = currentBalance.subtract(incomingAmount).setScale(2, RoundingMode.HALF_UP);
+		} else {
+			throw new IllegalArgumentException("Invalid AmountType. Must be 'income' or 'expense'.");
+		}
+		
+//		If the expected balance is negative, format it with the negative sign before the currency symbol
+		String expectedBalanceStr;
+		if (expectedBalance.compareTo(BigDecimal.ZERO) < 0) {
+			expectedBalanceStr = "-" + Currency + expectedBalance.abs().toString();
+		} else {
+			expectedBalanceStr = Currency + expectedBalance.toString();
+		}
+//		get new balance text from the dashboard and assert it matches the expected balance
+		WebElement balanceElement = driver.findElement(BalanceAmount);
+		String balanceText = balanceElement.getText();
+		Assert.assertEquals(balanceText, "Balance " + expectedBalanceStr, "Balance amount does not match expected value.");
 	}
 
 	public void initialIncomeVerification(String Currency) {
@@ -104,6 +134,31 @@ public class Dashboard extends AndroidActions {
 		String expenseText = expenseElement.getText();
 		Assert.assertEquals(expenseText, Currency + "0.00", "Initial expense is not 0.00");
 
+	}
+	
+	public String getCurrentDisplayedExpense(String Currency) {
+		WebElement expenseElement = driver.findElement(ExpenseAmount);
+		String expenseText = expenseElement.getText();
+		return expenseText.replace(Currency, "").trim();
+	}
+	
+	public void expenseAmountVerification(String Currency, String currentDisplayedExpense,String addedExpense) {
+
+		// Parse amounts using BigDecimal for precision
+		BigDecimal displayedAmount = new BigDecimal(currentDisplayedExpense.replaceAll(",", ""));
+		BigDecimal incomingAmount = new BigDecimal(addedExpense.replaceAll(",", ""));
+
+		// Sum previous displayed amount and incoming expectedExpense
+		BigDecimal summed = displayedAmount.add(incomingAmount).setScale(2, RoundingMode.HALF_UP);
+
+		// Format summed amount to 2 decimal places
+		DecimalFormat df = new DecimalFormat("0.00");
+		df.setRoundingMode(RoundingMode.HALF_UP);
+		String summedStr = df.format(summed);
+
+		WebElement expenseElement = driver.findElement(ExpenseAmount);
+		String expenseText = expenseElement.getText();
+		Assert.assertEquals(expenseText, Currency + summedStr, "Expense amount does not match expected value.");
 	}
 	
 	public void clickAddExpense() {

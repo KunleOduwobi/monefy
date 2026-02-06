@@ -20,13 +20,14 @@ public class AddIncome extends ViewSlides {
 		
 		dashboard.initialIncomeVerification(Currency);
 		String currentDisplayedIncome = dashboard.getCurrentDisplayedIncome(Currency);
+		String currentDisplayedBalance = dashboard.getCurrentDisplayedBalance(Currency);
 		dashboard.clickAddIncome();
 		income.enterIncomeAmount(incomeAmount);
 		income.verifyIncomeAmount(incomeAmount);
 		income.enterIncomeNote("Salary for June");
 		income.clickChooseCategory();
 		income.selectIncomeCategory("Salary");
-		dashboard.balanceAmountVerification(Currency, incomeAmount);
+		dashboard.balanceAmountVerification(Currency, currentDisplayedBalance, incomeAmount, "income");
 		dashboard.incomeAmountVerification(Currency, currentDisplayedIncome, incomeAmount);
 	}
 

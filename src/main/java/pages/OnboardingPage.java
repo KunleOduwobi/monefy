@@ -34,7 +34,7 @@ public class OnboardingPage extends AndroidActions {
 //	sleep for 1 second because the slides have the same element ids 
 //	and we need to wait for the second slide to load before asserting
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,7 +49,7 @@ public class OnboardingPage extends AndroidActions {
 //	Assert third slide
 	public void assertThirdSlide() {
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
