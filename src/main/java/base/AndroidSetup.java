@@ -89,7 +89,7 @@ public class AndroidSetup extends AppiumUtils{
 		String serverUrl = "http://" + ip + ":" + port;
 
 		driver = new AndroidDriver(new URL(serverUrl), options);
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		TestName = iTestContext.getName();
 		System.out.println(TestName + " running on: " + Env);
 
